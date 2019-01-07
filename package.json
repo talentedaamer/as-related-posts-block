@@ -1,0 +1,44 @@
+{
+  "name": "as-related-posts-block",
+  "version": "1.0.1",
+  "description": "Related Posts Gutenberg Block for WordPress",
+  "main": "blocks/index.js",
+  "scripts": {
+    "dev": "cross-env webpack --watch",
+    "build": "cross-env NODE_ENV=production webpack -p"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/talentedaamer/as-related-posts-block.git"
+  },
+  "keywords": [
+    "wordpress",
+    "gutenberg",
+    "gutenberg-block",
+    "related",
+    "posts"
+  ],
+  "author": "Aamer Shahzad",
+  "license": "GPL-2.0-only",
+  "bugs": {
+    "url": "https://github.com/talentedaamer/as-related-posts-block/issues"
+  },
+  "homepage": "https://github.com/talentedaamer/as-related-posts-block#readme",
+  "devDependencies": {
+    "@wordpress/babel-preset-default": "^1.2.0",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.3",
+    "babel-loader": "^7.1.4",
+    "classnames": "^2.2.5",
+    "cross-env": "^5.1.5",
+    "css-loader": "^0.28.11",
+    "eslint": "^4.19.1",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "node-sass": "^4.9.0",
+    "postcss-loader": "^2.1.5",
+    "raw-loader": "^0.5.1",
+    "sass-loader": "^6.0.7",
+    "style-loader": "^0.19.1",
+    "webpack": "^3.11.0"
+  }
+}

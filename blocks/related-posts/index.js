@@ -9,8 +9,9 @@ import './style.scss';
  */
 const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
-const { Spinner } = wp.components;
+const { Spinner, PanelBody, RangeControl, SelectControl } = wp.components;
 const { withSelect } = wp.data;
+const { InspectorControls } = wp.editor;
 
 import { isUndefined, pickBy } from 'lodash';
 
@@ -79,6 +80,31 @@ export default registerBlockType(
                 <div className="related-posts">
                     <h3>Related Posts:</h3>
                     <ul className={ className }>
+                        <InspectorControls>
+                            <PanelBody title={__('Block Settings')}>
+                                <SelectControl
+                                    label="Select Tag"
+                                    value="tag-2"
+                                    options={[
+                                        {label: 'tag 1', value: 'tag-1'},
+                                        {label: 'tag 2', value: 'tag-2'},
+                                        {label: 'tag 3', value: 'tag-3'},
+                                    ]}
+                                    onChange={ (related_tag) => {
+                                        console.log( related_tag );
+                                    }}
+                                />
+                                <RangeControl
+                                    label="Number of Posts"
+                                    value={5}
+                                    min={1}
+                                    max={10}
+                                    onChange={ (num_posts) => {
+                                        console.log( num_posts );
+                                    }}
+                                />
+                            </PanelBody>
+                        </InspectorControls>
                         { relatedPosts.map( post => {
                             return (
                                 <li>

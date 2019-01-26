@@ -52,7 +52,7 @@ class AS_Related_Posts_Block {
 
 	function as_rpb_editor_scripts() {
 		$editor_block_js_file = 'assets/js/editor.blocks.js';
-		//$editor_block_css_file = 'assets/css/styles.editor.css';
+
 		// Enqueue the bundled block JS file
 		wp_enqueue_script(
 			'as-rpb-block-js',
@@ -60,25 +60,11 @@ class AS_Related_Posts_Block {
 			[ 'wp-i18n', 'wp-element', 'wp-blocks', 'wp-components', 'wp-api', 'wp-editor' ],
 			filemtime( AS_RPB_DIR_PATH . $editor_block_js_file )
 		);
-		// Enqueue optional editor only styles
-		//wp_enqueue_style(
-		//	'as-rpb-editor-styles-css',
-		//	AS_RPB_DIR_URI . $editor_block_css_file,
-		//	[ 'wp-blocks' ],
-		//	filemtime( AS_RPB_DIR_PATH . $editor_block_css_file )
-		//);
 	}
 
 	function as_rpb_block_scripts() {
 		$block_css_file = 'assets/css/styles.blocks.css';
 
-		// Enqueue the bundled block JS file
-		//wp_enqueue_script(
-		//	'as-rpb-frontend-js',
-		//	plugin_dir_url( __FILE__ ) . 'assets/js/frontend.blocks.js',
-		//	[ 'wp-i18n', 'wp-element', 'wp-blocks', 'wp-components', 'wp-api', 'wp-editor' ],
-		//	AS_RPB_VER
-		//);
 		// Enqueue frontend and editor block styles
 		wp_enqueue_style(
 			'as-rpb-blocks-styles-css',
@@ -94,3 +80,5 @@ class AS_Related_Posts_Block {
  * initialize the plugin
  */
 $as_rpb = new AS_Related_Posts_Block();
+
+include AS_RPB_DIR_PATH . 'inc/related-posts.php';

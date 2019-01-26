@@ -1,6 +1,44 @@
-// block scss
-.entry-content .wp-block-as-related-posts-block-related-posts {
-  & > li {
-    border-bottom: 1px solid rgba(0,0,0,0.2);
+$border_color : #dddddd;
+
+.asrpb-wrap {
+  //border: 1px solid $border_color;
+  //padding: 1rem;
+
+  .asrpb-title {
+    margin: 0 0 1rem;
   }
+
+  .asrpb-list {
+    list-style-type: none !important;
+    margin: 0 !important;
+
+    .asrpb-list-item {
+      margin: 0;
+
+      & > a {
+        display: inline-block;
+        margin: 0 0 0.3125rem;
+        text-decoration: none;
+      }
+
+      & > time {
+        display: block;
+        margin: 0 0 0.3125rem;
+        font-size: 80%;
+      }
+
+      & > p {
+        margin: 0;
+      }
+
+      &:not(:last-child) {
+        border-bottom: 1px solid $border_color;
+        margin: 0 0 0.625rem;
+        padding: 0 0 0.625rem;
+      }
+
+    }
+
+  }
+
 }

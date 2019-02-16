@@ -15,17 +15,16 @@ export default registerBlockType(
     'as-related-posts-block/related-posts',
     {
         title      : __('Related Posts'),
-        description: __('Display list of Related Posts by tag.'),
+        description: __('Display list of Related Posts by category.'),
         category   : 'common',
         icon       : {
-            background: '#f0f0f0',
             foreground: '#1163EB',
             src       : icon
         },
         keywords   : [
             __('related'),
             __('posts'),
-            __('random'),
+            __('category'),
         ],
         supports: {
             html: false,

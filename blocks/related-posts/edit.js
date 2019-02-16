@@ -83,7 +83,6 @@ class RelatedPostsEdit extends Component {
 	componentWillReceiveProps ( newProps ) {
 		if ( newProps.relatedCategories !== this.props.relatedCategories ) {
 			const { relatedCategories } = newProps;
-			console.log( newProps );
 			this.getPostCategories( relatedCategories );
 		}
 	}
@@ -96,8 +95,6 @@ class RelatedPostsEdit extends Component {
 		const { attributes, setAttributes, relatedPosts } = this.props;
 		const { relatedCategories } = this.state;
 		const { order, orderBy, categories, postsToShow, displayPostDate, displayPostContent, postContentLength } = attributes;
-		
-		console.log( 'rendered method', relatedPosts );
 		
 		// block inspector controls
 		const inspectorControls = (
@@ -173,7 +170,7 @@ class RelatedPostsEdit extends Component {
 								</time>
 								}
 								{ displayPostContent && postContent &&
-								<p>{ postContent.substring( 0, postContentLength ) } ...</p>
+								<p>{ postContent.substring( 0, postContentLength ) } [...]</p>
 								}
 							</li>
 						)

@@ -1,7 +1,7 @@
 /**
  * registerBlockType and source code.
  */
-import icon from './icon';
+import icons from './icons';
 import './style.scss';
 import edit from './edit';
 
@@ -19,7 +19,7 @@ export default registerBlockType(
         category   : 'common',
         icon       : {
             foreground: '#1163EB',
-            src       : icon
+            src       : icons.icon
         },
         keywords   : [
             __('related'),

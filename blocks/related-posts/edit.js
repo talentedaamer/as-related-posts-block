@@ -1,5 +1,5 @@
 // block icon
-import icon from './icon';
+import icons from './icons';
 
 const { __ } = wp.i18n;
 const { withSelect } = wp.data;
@@ -28,29 +28,29 @@ import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
 
 class RelatedPostsEdit extends Component {
-	
+
 	constructor () {
 		super( ...arguments );
 		this.state = {
 			categoriesList   : [],
 			relatedCategories: [],
 		};
-		
+
 		this.toggleDisplayPostDate = this.toggleDisplayPostDate.bind( this );
 		this.toggleDisplayPostContent = this.toggleDisplayPostContent.bind( this );
 	}
-	
+
 	toggleDisplayPostDate() {
 		const { displayPostDate } = this.props.attributes;
 		const { setAttributes } = this.props;
-		
+
 		setAttributes( { displayPostDate: ! displayPostDate } );
 	}
-	
+
 	toggleDisplayPostContent() {
 		const { displayPostContent } = this.props.attributes;
 		const { setAttributes } = this.props;
-		
+
 		setAttributes( { displayPostContent: ! displayPostContent } );
 	}
 
@@ -59,7 +59,7 @@ class RelatedPostsEdit extends Component {
 		const hasCategories = Array.isArray( relatedCategories ) && relatedCategories.length;
 		if ( hasCategories ) {
 			this.catRequest = apiFetch( {
-				path: addQueryArgs( `/wp-json/wp/v2/categories`, {
+				path: addQueryArgs( '/wp-json/wp/v2/categories', {
 					per_page: - 1, // get all categories
 					include : relatedCategories
 				} ),
@@ -69,33 +69,33 @@ class RelatedPostsEdit extends Component {
 				}
 			} ).catch( err => {
 				if ( this.isStillMounted ) {
-					this.setState( { relatedCategories: [] } )
+					this.setState( { relatedCategories: [] } );
 				}
 			} );
 		}
 	}
-	
+
 	componentDidMount () {
 		const { relatedCategories } = this.props;
 		this.getPostCategories( relatedCategories );
 	}
-	
+
 	componentWillReceiveProps ( newProps ) {
 		if ( newProps.relatedCategories !== this.props.relatedCategories ) {
 			const { relatedCategories } = newProps;
 			this.getPostCategories( relatedCategories );
 		}
 	}
-	
+
 	componentWillUnmount () {
 		this.isStillMounted = false;
 	}
-	
+
 	render () {
 		const { attributes, setAttributes, relatedPosts } = this.props;
 		const { relatedCategories } = this.state;
 		const { order, orderBy, categories, postsToShow, displayPostDate, displayPostContent, postContentLength } = attributes;
-		
+
 		// block inspector controls
 		const inspectorControls = (
 			<InspectorControls>
@@ -132,26 +132,26 @@ class RelatedPostsEdit extends Component {
 				</PanelBody>
 			</InspectorControls>
 		);
-		
+
 		// check if has posts
 		const hasPosts = Array.isArray( relatedPosts ) && relatedPosts.length;
-		
+
 		// if not has posts
 		if ( ! hasPosts ) {
 			return (
 				<Fragment>
 					{ inspectorControls }
-					<Placeholder icon={ icon } label={ __( 'Related Posts' ) }>
+					<Placeholder icon={ icons.iconSmall } label={ __( 'Related Posts' ) }>
 						{ ! Array.isArray( relatedPosts ) ? <Spinner/> : __( 'No Related posts found.' ) }
 					</Placeholder>
 				</Fragment>
 			);
 		}
-		
+
 		const displayPosts = relatedPosts.length > postsToShow ? relatedPosts.slice( 0, postsToShow ) : relatedPosts;
-		
+
 		const dateFormat = __experimentalGetSettings().formats.date;
-		
+
 		return (
 			<div className="asrpb-wrap">
 				{ inspectorControls }
@@ -173,16 +173,16 @@ class RelatedPostsEdit extends Component {
 								<p>{ postContent.substring( 0, postContentLength ) } [...]</p>
 								}
 							</li>
-						)
+						);
 					} ) }
 				</ul>
 			</div>
-		)
+		);
 	}
 }
 
 export default withSelect( ( select, props ) => {
-	
+
 	// get block attributes
 	const { postsToShow, order, orderBy, categories } = props.attributes;
 	// get entity records function
@@ -190,7 +190,7 @@ export default withSelect( ( select, props ) => {
 	// get current post being edited or created
 	const currentPost = select( 'core/editor' ).getCurrentPost();
 	const postCategories = select( 'core/editor' ).getEditedPostAttribute('categories');
-	
+
 	// post query.
 	const relatedPostsQuery = pickBy( {
 		categories: categories,
@@ -200,10 +200,10 @@ export default withSelect( ( select, props ) => {
 		exclude   : currentPost.id,
 	}, ( value ) => ! isUndefined( value ) );
 	const relatedPosts = getEntityRecords( 'postType', 'post', relatedPostsQuery );
-	
+
 	return {
 		relatedPosts,
 		relatedCategories: postCategories
 	};
-	
+
 } )( RelatedPostsEdit );

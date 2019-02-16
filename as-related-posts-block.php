@@ -32,26 +32,26 @@ if ( ! function_exists( 'register_block_type' ) ) {
  *
  * @since 1.0.1
  */
-if ( ! defined( 'AS_RPB_DIR_PATH' ) )
-	define( 'AS_RPB_DIR_PATH', plugin_dir_path( __FILE__ ) );
+if ( ! defined( 'ASRPB_DIR_PATH' ) )
+	define( 'ASRPB_DIR_PATH', plugin_dir_path( __FILE__ ) );
 
-if ( ! defined( 'AS_RPB_DIR_URI' ) )
-	define( 'AS_RPB_DIR_URI', plugin_dir_url( __FILE__ ) );
+if ( ! defined( 'ASRPB_DIR_URI' ) )
+	define( 'ASRPB_DIR_URI', plugin_dir_url( __FILE__ ) );
 
 /**
  * define plugin version
  *
  * @since 1.0.1
  */
-define( 'AS_RPB_VER', '1.0.1' );
+define( 'ASRPB_VER', '1.0.1' );
 
-if ( ! class_exists( 'AS_RPB' ) ) :
+if ( ! class_exists( 'ASRPB_Related_Posts_Block' ) ) :
 	/**
 	 * Class AS_Related_Posts_Block
 	 *
 	 * @since 1.0.1
 	 */
-	class AS_RPB {
+	class ASRPB_Related_Posts_Block {
 
 		private static $instance = null;
 
@@ -60,7 +60,7 @@ if ( ! class_exists( 'AS_RPB' ) ) :
 		 *
 		 * @since 1.0.1
 		 *
-		 * @return AS_Related_Posts_Block class instance
+		 * @return ASRPB_Related_Posts_Block class instance
 		 */
 		public static function get_instance() {
 			if ( null == self::$instance ) {
@@ -76,8 +76,8 @@ if ( ! class_exists( 'AS_RPB' ) ) :
 		 * @since 1.0.1
 		 */
 		public function __construct() {
-			add_action( 'enqueue_block_editor_assets', array( $this, 'as_rpb_editor_scripts' ) );
-			add_action('enqueue_block_assets', array( $this, 'as_rpb_block_scripts' ) );
+			add_action( 'enqueue_block_editor_assets', array( $this, 'asrpb_editor_scripts' ) );
+			add_action('enqueue_block_assets', array( $this, 'asrpb_block_scripts' ) );
 		}
 
 		/**
@@ -85,15 +85,15 @@ if ( ! class_exists( 'AS_RPB' ) ) :
 		 *
 		 * @since 1.0.1
 		 */
-		function as_rpb_editor_scripts() {
+		function asrpb_editor_scripts() {
 			$editor_block_js_file = 'assets/js/editor.blocks.js';
 
 			// Enqueue the bundled block JS file
 			wp_enqueue_script(
-				'as-rpb-block-js',
-				AS_RPB_DIR_URI . $editor_block_js_file,
+				'asrpb-block-js',
+				ASRPB_DIR_URI . $editor_block_js_file,
 				[ 'wp-i18n', 'wp-element', 'wp-blocks', 'wp-components', 'wp-api', 'wp-editor' ],
-				filemtime( AS_RPB_DIR_PATH . $editor_block_js_file )
+				filemtime( ASRPB_DIR_PATH . $editor_block_js_file )
 			);
 		}
 
@@ -102,21 +102,21 @@ if ( ! class_exists( 'AS_RPB' ) ) :
 		 *
 		 * @since 1.0.1
 		 */
-		function as_rpb_block_scripts() {
+		function asrpb_block_scripts() {
 			$block_css_file = 'assets/css/styles.blocks.css';
 
 			// Enqueue frontend and editor block styles
 			wp_enqueue_style(
-				'as-rpb-blocks-styles-css',
-				AS_RPB_DIR_URI . $block_css_file,
+				'asrpb-blocks-styles-css',
+				ASRPB_DIR_URI . $block_css_file,
 				null,
-				filemtime( AS_RPB_DIR_PATH . $block_css_file )
+				filemtime( ASRPB_DIR_PATH . $block_css_file )
 			);
 		}
 
 	}
 
-endif; // end if class_exists( 'AS_RPB' )
+endif; // end if class_exists( 'ASRPB_Related_Posts_Block' )
 
 /**
  * initialize the plugin
@@ -124,7 +124,12 @@ endif; // end if class_exists( 'AS_RPB' )
  * @since 1.0.1
  */
 add_action( 'plugins_loaded', function () {
-	AS_RPB::get_instance();
-
-	include AS_RPB_DIR_PATH . 'inc/as-rpb-related-posts.php';
+	ASRPB_Related_Posts_Block::get_instance();
 } );
+
+/**
+ * Include files and functions
+ *
+ * @since 1.0.1
+ */
+include ASRPB_DIR_PATH . 'inc/asrpb-related-posts.php';
